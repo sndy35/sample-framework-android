@@ -6,6 +6,6 @@
 2. Run `adb devices` to get the udid of connected android device
 3. Run the below command from root folder
 
-Run adb devices to get udid of connected android device
+
 java -cp target/sample-framework-android-0.0.1-SNAPSHOT-tests.jar:target/libs/*:target/sample-framework-android-0.0.1-SNAPSHOT.jar -Dplatform=android  -DplatformVersion=<version>  -Dudid=<udid>  -DdeviceName=<udid>  -DappPackage=com.amazon.mShop.android.shopping -DappActivity=com.amazon.mShop.splashscreen.StartupActivity -DnewCommandTimeout=5000 org.testng.TestNG  testng_files/amazon.xml  
 
