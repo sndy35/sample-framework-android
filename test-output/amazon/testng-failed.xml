@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite guice-stage="DEVELOPMENT" name="Failed suite [amazon]">
+  <parameter name="xmlFile" value="products.xml"/>
+  <test thread-count="1" name="amazon">
+    <parameter name="xmlFile" value="products.xml"/>
+    <classes>
+      <class name="com.telstra.android.search.SearchProductTest"/>
+    </classes>
+  </test> <!-- amazon -->
+  <test name="amazon(failed)">
+    <parameter name="xmlFile" value="products.xml"/>
+    <classes>
+      <class name="com.telstra.android.search.SearchProductTest">
+        <methods>
+          <include name="setUp"/>
+          <include name="quitDriver"/>
+          <include name="handleTestMethodName"/>
+          <include name="searchProduct" invocation-numbers="0"/>
+        </methods>
+      </class> <!-- com.telstra.android.search.SearchProductTest -->
+    </classes>
+  </test> <!-- amazon(failed) -->
+</suite> <!-- Failed suite [amazon] -->

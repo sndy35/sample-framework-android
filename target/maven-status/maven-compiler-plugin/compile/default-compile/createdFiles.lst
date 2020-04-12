@@ -1,0 +1,16 @@
+com/telstra/android/testdata/SearchText.class
+com/telstra/reporting/Logger.class
+com/telstra/android/testdata/Testdata.class
+com/telstra/android/testdata/Test.class
+com/telstra/android/testdata/TestParameters.class
+com/telstra/android/testdata/ObjectFactory.class
+com/telstra/android/utils/HelperClass.class
+com/telstra/android/utils/AndroidActions.class
+com/telstra/utils/CommandLineParameters.class
+com/telstra/android/pages/LoginScreen.class
+com/telstra/android/listeners/RetryListener.class
+com/telstra/android/pages/HomeScreen.class
+com/telstra/android/pages/SearchResultsScreen.class
+com/telstra/android/utils/StringEncrypt.class
+com/telstra/android/pages/CheckoutProduct.class
+com/telstra/android/testdata/Category.class

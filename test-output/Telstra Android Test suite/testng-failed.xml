@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Failed suite [Telstra Android Test suite]">
+  <parameter name="testData" value="products.xml"/>
+  <test thread-count="1" name="Product Search">
+    <parameter name="testData" value="products.xml"/>
+    <classes>
+      <class name="com.telstra.android.search.SearchProductTest"/>
+    </classes>
+  </test> <!-- Product Search -->
+  <test name="Product Search(failed)">
+    <parameter name="testData" value="products.xml"/>
+    <classes>
+      <class name="com.telstra.android.search.SearchProductTest">
+        <methods>
+          <include name="initializeDriver"/>
+          <include name="searchProduct"/>
+        </methods>
+      </class> <!-- com.telstra.android.search.SearchProductTest -->
+    </classes>
+  </test> <!-- Product Search(failed) -->
+</suite> <!-- Failed suite [Telstra Android Test suite] -->
