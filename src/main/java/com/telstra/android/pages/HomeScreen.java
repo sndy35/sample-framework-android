@@ -55,10 +55,14 @@ public class HomeScreen {
      */
     public boolean verifyCartIsEmpty() {
 	    	logger.info("verifyCartIsEmpty: Veriyfing if the cart is empty");
-	    	wait.until(ExpectedConditions.visibilityOf(cartButton));
-	    	if(cartButton.getText().equalsIgnoreCase("0")) {
-	    		logger.info("verifyCartIsEmpty: cart is empty");
-	    		return true;
+	    	try {
+	    		wait.until(ExpectedConditions.visibilityOf(cartButton));
+	    		if(cartButton.getText().equalsIgnoreCase("0")) {
+	    			logger.info("verifyCartIsEmpty: cart is empty");
+	    			return true;
+	    		}
+	    	} catch(Exception e) {
+	    		logger.info("verifyCartIsEmpty:cartButton is not visible");
 	    	}
 	    	logger.info("verifyCartIsEmpty: cart is not empty");
 	    	return false;

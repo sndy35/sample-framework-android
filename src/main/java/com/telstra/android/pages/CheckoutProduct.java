@@ -69,9 +69,11 @@ public class CheckoutProduct {
 	 * Function to check buying options is visible
 	 */
 	private void checkBuyingOptions() {
+		logger.info("checkBuyingOptions: checking for buying options button");
 		action.scrollUp();
 		try {
 			wait.until(ExpectedConditions.visibilityOf(buyingOptionsButton));
+			logger.info("checkBuyingOptions: clicking on check buying options button");
 			buyingOptionsButton.click();	
 		} catch(Exception e) {		
 			logger.info("checkBuyingOptions: Buying Options Element is not visible");
@@ -83,9 +85,13 @@ public class CheckoutProduct {
 	 * Function to click on cart once the item is added
 	 */
 	public void clickOnBasket() {
-		wait.until(ExpectedConditions.visibilityOf(cartIcon));
-		cartIcon.click();
-		wait.until(ExpectedConditions.visibilityOf(checkoutButton));
+		try {
+			wait.until(ExpectedConditions.visibilityOf(cartIcon));
+			cartIcon.click();
+			wait.until(ExpectedConditions.visibilityOf(checkoutButton));
+		} catch(Exception e) {
+			logger.info("clickOnBasket: clickOnBasket not successful "+e.getMessage());
+		}
 		
 	}
 	
@@ -93,18 +99,28 @@ public class CheckoutProduct {
 	 * Function to get the name of the product added in the cart
 	 */
 	public String getProductNameFromCheckoutScreen() {
-		
-		wait.until(ExpectedConditions.visibilityOf(ItemDetailsImage));
-		return ItemDetailsImage.getAttribute("text");		
+		try {
+			logger.info("getProductNameFromCheckoutScreen: Checking visibility of ItemDetails image");
+			wait.until(ExpectedConditions.visibilityOf(ItemDetailsImage));
+			return ItemDetailsImage.getAttribute("text");		
+		} catch(Exception e) {
+			logger.info("getProductNameFromCheckoutScreen: ItemDetailsImage not visible");
+		}
+		return null;
 	}
 	
 	/*
 	 * Function to checkout the cart
 	 */
 	public void checkout() {
-		wait.until(ExpectedConditions.visibilityOf(checkoutButton));
-		checkoutButton.click();
-		wait.until(ExpectedConditions.visibilityOf(deliverButton));
+		try {
+			logger.info("checkout: verifying visibility of checkout button");
+			wait.until(ExpectedConditions.visibilityOf(checkoutButton));
+			checkoutButton.click();
+			wait.until(ExpectedConditions.visibilityOf(deliverButton));
+		} catch(Exception e) {
+			logger.info("checkout: checkout button is not visible");
+		}
 		
 	}
 }

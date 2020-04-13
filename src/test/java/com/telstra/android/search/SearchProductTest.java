@@ -15,24 +15,34 @@ public class SearchProductTest extends BaseTest {
 	@Test(dataProvider = "testData",retryAnalyzer=com.telstra.android.listeners.RetryListener.class)
 	public void searchProduct(String testName, TestParameters test) throws InterruptedException {
 		String searchText = test.getSearchText();
-		logger.info("Running Test to search for "+searchText);
+		logger.info("searchProduct: Running Test to search for "+searchText);
 		LoginScreen loginScreen = new LoginScreen(driver, logger);
 		loginScreen.skipLogin();
-		String actual = "";
-		String expected = "";
+		String actual = null;
+		String expected = null;
 		HomeScreen homeScreen = new HomeScreen(driver, logger);
 		boolean cartEmpty = homeScreen.verifyCartIsEmpty();
 		if(!cartEmpty) {
-			logger.fail("cart is not empty after login");
+			logger.fail("searchProduct: cart is not empty after login");
+			Assert.fail("searchProduct: cart is not empty after login");
 		}
 		homeScreen.searchItem(searchText);
 		SearchResultsScreen searchScreen = new SearchResultsScreen(driver, logger);
 		expected = searchScreen.selectRandomItemFromList(searchText);
+		logger.info("searchProduct: Expected product name is "+expected);
+		if(expected == null) {
+			logger.fail("searchProduct: product returned is empty");
+			Assert.fail("searchProduct: product returned is empty");
+		}			
 		CheckoutProduct checkoutProduct = new CheckoutProduct(driver, logger);
 		checkoutProduct.addItemToCart();
 		checkoutProduct.clickOnBasket();
 		actual = checkoutProduct.getProductNameFromCheckoutScreen();
-		Assert.assertTrue(expected.contains(actual), "Expected value does not match actual value");
+		logger.info("searchProduct: Actual product name in checkout screen is "+actual);
+		if(!expected.contains(actual)) {
+			logger.fail("searchProduct: product name in checkout screen is not matching with product selected");
+		}
+		Assert.assertTrue(expected.contains(actual), "Expected product value does not match actual product value");
 		
 
 	}

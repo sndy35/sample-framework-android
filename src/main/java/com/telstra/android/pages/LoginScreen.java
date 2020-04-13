@@ -52,9 +52,14 @@ public class LoginScreen {
 	 */
 	public void skipLogin() {
 		logger.info("skipLogin: skipping Login");
-		wait.until(ExpectedConditions.visibilityOf(skipSignInButton));
-		skipSignInButton.click();
-		logger.info("skipLogin: clicked on Skip SignIn button");
+		try {
+			logger.info("skipLogin: checking visibility of skiplogin button");
+			wait.until(ExpectedConditions.visibilityOf(skipSignInButton));
+			skipSignInButton.click();
+			logger.info("skipLogin: clicked on Skip SignIn button");
+		} catch(Exception e) {
+			logger.info("skipLogin: skiplogin button is not visible");
+		}
 	}
 	
 	/*
@@ -62,20 +67,24 @@ public class LoginScreen {
 	 */
 	public void login(String userName, String passwordEncrypted) {
 		logger.info("login:  Login to app with user "+userName);
-		wait.until(ExpectedConditions.visibilityOf(signInButton));
-		signInButton.click();
-		wait.until(ExpectedConditions.visibilityOf(usrInputBox));
-		logger.info("login:  Entering username");
-		usrInputBox.sendKeys(userName);
-		HelperClass.androidKeyPress("ENTER", driver);
-		wait.until(ExpectedConditions.visibilityOf(continueBtn));
-		continueBtn.click();
-		logger.info("login:  Entering passwords");
-		pwdInputBox.sendKeys(passwordEncrypted);
-		HelperClass.androidKeyPress("ENTER", driver);
-		wait.until(ExpectedConditions.visibilityOf(submitBtn));
-		logger.info("login:  Clicking on submit button");
-		submitBtn.click();
+		try {
+			wait.until(ExpectedConditions.visibilityOf(signInButton));
+			signInButton.click();
+			wait.until(ExpectedConditions.visibilityOf(usrInputBox));
+			logger.info("login:  Entering username");
+			usrInputBox.sendKeys(userName);
+			HelperClass.androidKeyPress("ENTER", driver);
+			wait.until(ExpectedConditions.visibilityOf(continueBtn));
+			continueBtn.click();
+			logger.info("login:  Entering passwords");
+			pwdInputBox.sendKeys(passwordEncrypted);
+			HelperClass.androidKeyPress("ENTER", driver);
+			wait.until(ExpectedConditions.visibilityOf(submitBtn));
+			logger.info("login:  Clicking on submit button");
+			submitBtn.click();
+		} catch(Exception e) {
+			logger.info("login: "+e.getMessage());
+		}
 		
 	}
 	

@@ -58,7 +58,6 @@ public class BaseTest {
 	}
 
 	private void initializeDriver() throws MalformedURLException {
-   
 		try {
 			String ip = System.getProperty(CommandLineParameters.APPIUM_SERVER) != null
 					? System.getProperty(CommandLineParameters.APPIUM_SERVER)
@@ -79,7 +78,7 @@ public class BaseTest {
 			driver = new AndroidDriver<>(new URL("http://" + ip + ":" + port + "/wd/hub"), capabilities);
 		
 		} catch(Exception e) {
-		 logger.fail("initializeDriver: Error launching driver "+e.getMessage());
+			logger.fail("initializeDriver: Error launching driver "+e.getMessage());
 		}
 	}
 
@@ -111,12 +110,12 @@ public class BaseTest {
 	}
 
 	@AfterMethod
-	public void closeApp(ITestResult result) {
+	public void closeApp(ITestResult result, ITestContext ctx) {
 		if(result.getStatus() == ITestResult.SUCCESS) {
 			logger.pass("Test has run successfully");			
 		}
-		((AndroidDriver)driver).closeApp();
 		logger.endTest();
+		((AppiumDriver)driver).resetApp();		
 	}
 
 	@BeforeMethod(alwaysRun = true)
@@ -134,7 +133,7 @@ public class BaseTest {
 				attempts++;
 			}
 		} catch (Exception e) {
-			logger.info("Error launching driver");
+			logger.info("BeforeMethod: Error launching driver");
 		}
 	}
 

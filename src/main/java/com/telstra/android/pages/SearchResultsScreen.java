@@ -43,24 +43,29 @@ public class SearchResultsScreen {
 		logger.info("selectRandomItemFromList: selecting random item from list of results");
 		wait.until(ExpectedConditions.visibilityOf(searchResults.get(0)));
 		logger.info("selectRandomItemFromList: Total number of search results "+searchResults.size());
-		List<String> validItems = new ArrayList<String>();
-		for (MobileElement el : searchResults) {
-			String txtAttribute = el.getAttribute("text");
-			if(txtAttribute.contains("TV")) {
-				validItems.add("//android.view.View/android.view.View/android.view.View[@text='" + txtAttribute + "']");
+		try {
+			List<String> validItems = new ArrayList<String>();
+			for (MobileElement el : searchResults) {
+				String txtAttribute = el.getAttribute("text");
+				if(txtAttribute.contains("TV")) {
+					validItems.add("//android.view.View/android.view.View/android.view.View[@text='" + txtAttribute + "']");
+				}
 			}
+			int validResults = validItems.size();
+			logger.info("selectRandomItemFromList: Valid search results "+validResults);
+			logger.info("selectRandomItemFromList: Selecting random item from search list");
+			int randomIndex = (int)(Math.random()*validResults);
+			AndroidActions actions = new AndroidActions(driver, logger);
+			MobileElement searchItem = (MobileElement) driver.findElementByXPath(validItems.get(randomIndex));
+			actions.scrollToElement(searchItem);
+			String productName = searchItem.getAttribute("text");
+			driver.findElementByXPath(validItems.get((int)(Math.random()*validItems.size()))).click();
+			logger.info("selectRandomItemFromList: Selected Item "+searchText);
+			return productName;
+		} catch(Exception e) {
+			logger.info("selectRandomItemFromList: "+e.getMessage());
 		}
-		int validResults = validItems.size();
-		logger.info("selectRandomItemFromList: Valid search results "+validResults);
-		logger.info("selectRandomItemFromList: Selecting random item from search list");
-		int randomIndex = (int)(Math.random()*validResults);
-		AndroidActions actions = new AndroidActions(driver, logger);
-		MobileElement searchItem = (MobileElement) driver.findElementByXPath(validItems.get(randomIndex));
-		actions.scrollToElement(searchItem);
-		String productName = searchItem.getAttribute("text");
-		driver.findElementByXPath(validItems.get((int)(Math.random()*validItems.size()))).click();
-		logger.info("selectRandomItemFromList: Selected Item "+searchText);
-		return productName;
+		return null;
 	}
 
 }
